@@ -5,13 +5,14 @@ import {
   ListItemIcon,
   ListItemText,
   Divider,
-  Toolbar,
   Tooltip,
+  Typography,
+  Box,
 } from "@mui/material";
 import { Home, Info } from "@mui/icons-material";
 import { Link, useLocation } from "react-router-dom";
 
-const drawerWidthOpen = 200;
+const drawerWidthOpen = 220;
 const drawerWidthClosed = 60;
 
 type Props = {
@@ -35,12 +36,37 @@ export default function Sidebar({ open }: Props) {
         whiteSpace: "nowrap",
         [`& .MuiDrawer-paper`]: {
           width: open ? drawerWidthOpen : drawerWidthClosed,
+          color: 'white',
           transition: "width 0.3s",
+          backgroundColor: 'primary.main',
           overflowX: "hidden",
         },
       }}
     >
-      <Toolbar />
+      <Box sx={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '64px',
+        backgroundColor: 'primary.dark',
+      }}>
+        <img
+          src="/logo.png"
+          alt="Logo"
+          style={{
+            width: "40px",
+            height: "40px",
+            borderRadius: "50%",
+            filter: "invert(1)",
+          }}
+        />
+        <Typography variant="body1" sx={{
+          display: open ? 'block' : 'none', transition: "width 0.3s"
+        }} noWrap>
+          Eco Smart Dustbin
+        </Typography>
+      </Box>
+
       <Divider />
       <List>
         {navItems.map((item) => (
@@ -53,13 +79,24 @@ export default function Sidebar({ open }: Props) {
               component={Link}
               to={item.to}
               selected={location.pathname === item.to}
-              sx={{ justifyContent: open ? "initial" : "center", px: 2 }}
+              sx={{
+                justifyContent: open ? "initial" : "center", px: 2, '&:hover': {
+                  color: 'white',
+                },
+                '&.Mui-selected': {
+                  backgroundColor: '#196e55',
+                },
+                '&.Mui-selected:hover': {
+                  backgroundColor: '#196e55',
+                },
+              }}
             >
               <ListItemIcon
                 sx={{
                   minWidth: 0,
                   mr: open ? 2 : "auto",
                   justifyContent: "center",
+                  color: 'white'
                 }}
               >
                 {item.icon}

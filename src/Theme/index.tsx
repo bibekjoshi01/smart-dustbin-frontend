@@ -1,24 +1,17 @@
 import {
   createTheme,
   ThemeProvider,
-  type PaletteColorOptions,
 } from "@mui/material/styles";
 
-const palleteColor = {
-  primary: {
-    main: "#008B8B",
-  },
-  secondary: {
-    main: "#000080",
-  },
-} satisfies Record<string, PaletteColorOptions>;
 
 const theme = createTheme({
   palette: {
-    ...palleteColor,
-  },
+    primary: {
+      main: "#1b8e6c",
+    }
+  }
 });
 
-export default function ThemeProviderComponent({ children }: any) {
+export default function ThemeProviderComponent({ children }: { children: React.ReactNode }) {
   return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
 }
