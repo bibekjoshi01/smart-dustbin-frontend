@@ -29,7 +29,7 @@ export default function Layout() {
           width: open ? `calc(100% - ${drawerWidthOpen}px)` : `calc(100% - ${drawerWidthClosed}px)`,
           backgroundColor: "white",
           transition: "width 0.3s",
-          boxShadow: (theme) => theme.shadows[2],
+          boxShadow: (theme) => theme.shadows[1],
         }}
       >
         <Toolbar>

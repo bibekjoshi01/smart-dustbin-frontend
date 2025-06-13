@@ -48,6 +48,7 @@ export default function Sidebar({ open }: Props) {
         alignItems: 'center',
         justifyContent: 'center',
         height: '64px',
+        ml: open ? -3 : 0,
         backgroundColor: 'primary.dark',
       }}>
         <img
@@ -58,6 +59,7 @@ export default function Sidebar({ open }: Props) {
             height: "40px",
             borderRadius: "50%",
             filter: "invert(1)",
+            cursor: "pointer",
           }}
         />
         <Typography variant="body1" sx={{

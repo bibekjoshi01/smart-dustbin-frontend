@@ -1,17 +1,36 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Layout from "./components/layout";
-import Home from "./pages/Home";
-import About from "./pages/About";
+import Routes from "./routes";
+import { useEffect } from "react";
+import ThemeProviderComponent from "./Theme";
+import { setSnackbar } from "./utils/notifier";
+import StoreProvider from "./libs/StoreProvider";
+import { BrowserRouter, } from "react-router-dom";
+import { SnackbarProvider, useSnackbar } from "notistack";
+
+function SnackbarInitializer() {
+  const { enqueueSnackbar } = useSnackbar();
+
+  useEffect(() => {
+    setSnackbar(enqueueSnackbar);
+  }, [enqueueSnackbar]);
+
+  return null;
+}
 
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="about" element={<About />} />
-        </Route>
-      </Routes>
+      <StoreProvider>
+        <ThemeProviderComponent>
+          <SnackbarProvider
+            maxSnack={3}
+            anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+            autoHideDuration={3000}
+          >
+            <SnackbarInitializer />
+            <Routes />
+          </SnackbarProvider>
+        </ThemeProviderComponent>
+      </StoreProvider>
     </BrowserRouter>
   );
 }
