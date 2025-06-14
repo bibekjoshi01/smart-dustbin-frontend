@@ -70,7 +70,7 @@ export default function Sidebar({ open }: Props) {
         <Typography variant="body1" sx={{
           display: open ? 'block' : 'none', transition: "width 0.3s"
         }} noWrap>
-          Eco Smart Dustbin
+          सफा यात्रा
         </Typography>
       </Box>
 

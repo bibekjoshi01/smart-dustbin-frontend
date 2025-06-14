@@ -1,20 +1,39 @@
-
 import { Box, Card, CardContent, Typography } from "@mui/material";
-import { ResponsiveContainer, PieChart as Chart, Pie, Cell, Tooltip, Legend } from "recharts";
+import {
+    PieChart as Chart,
+    Pie,
+    Cell,
+    Tooltip,
+    Legend,
+    ResponsiveContainer,
+} from "recharts";
 
-import { COLORS, pieData } from "../constants/data";
+interface Props {
+    data: { name: string; value: number }[];
+}
 
-export default function PieChart() {
+const COLORS = ["#00C49F", "#0088FE"];
+
+export default function PieChart({ data }: Props) {
     return (
         <Card>
             <CardContent>
                 <Typography mb={2}>Waste Breakdown</Typography>
-                <Box sx={{ width: '100%', height: { xs: 240, sm: 280, md: 320 } }}>
+                <Box sx={{ width: "100%", height: { xs: 240, sm: 280, md: 320 } }}>
                     <ResponsiveContainer width="100%" height="100%">
                         <Chart>
-                            <Pie data={pieData} dataKey="value" nameKey="name" outerRadius={100}>
-                                {pieData.map((_, index) => (
-                                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                            <Pie
+                                data={data}
+                                dataKey="value"
+                                nameKey="name"
+                                outerRadius={100}
+                                label
+                            >
+                                {data.map((_, index) => (
+                                    <Cell
+                                        key={`cell-${index}`}
+                                        fill={COLORS[index % COLORS.length]}
+                                    />
                                 ))}
                             </Pie>
                             <Tooltip />

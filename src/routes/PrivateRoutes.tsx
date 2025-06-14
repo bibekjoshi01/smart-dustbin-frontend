@@ -9,7 +9,7 @@ import Loadable from '@/components/Loadable';
 const Home = Loadable(lazy(() => import('@/pages/Home')));
 const About = Loadable(lazy(() => import('@/pages/About')));
 const NotFoundPage = Loadable(lazy(() => import('./PageNotFound')));
-
+const BinDetails = Loadable(lazy(() => import('@/pages/BinDetails')));
 
 const PrivateRoutes = () => (
   <>
@@ -17,6 +17,7 @@ const PrivateRoutes = () => (
       <Route path="/" element={<Layout />}>
         <Route path="" element={<Home />} />
         <Route path="about" element={<About />} />
+        <Route path=":id" element={<BinDetails />} />
       </Route>
       <Route path="*" element={<NotFoundPage />} />
 

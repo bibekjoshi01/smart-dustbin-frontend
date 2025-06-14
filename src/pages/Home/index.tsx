@@ -1,13 +1,18 @@
 import { Box } from "@mui/material";
-import BarChart from "./components/BarChart";
-import PieChart from "./components/PieChart";
+// import BarChart from "./components/BarChart";
+// import PieChart from "./components/PieChart";
+import BinMap from "./components/Map";
 
 export default function Home() {
   return (
     <>
-      <Box sx={{ mt: 1, display: 'grid', gridAutoFlow: 'column', gap: 2 }}>
+      {/* <Box sx={{ mt: 1, display: 'grid', gridAutoFlow: 'column', gap: 2 }}>
         <BarChart />
         <PieChart />
+      </Box> */}
+
+      <Box sx={{ mt: 4 }}>
+        <BinMap />
       </Box>
     </>
   );
