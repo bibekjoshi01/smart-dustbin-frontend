@@ -3,6 +3,7 @@ import { ApexOptions } from 'apexcharts';
 import ReactApexChart from 'react-apexcharts';
 import { useTheme } from '@mui/material/styles';
 import { generateBarData } from '../constants/data';
+import { COLORS } from '@/utils/constants/COLORS';
 
 interface BarChartProps {
     range: 'today' | 'month' | 'year';
@@ -35,7 +36,7 @@ export default function BarChart({ range, id }: BarChartProps) {
             categories,
             labels: { style: { colors: categories.map(() => theme.palette.text.secondary) } }
         },
-        colors: ['#00C49F', '#0088FE'],
+        colors: COLORS,
         legend: { position: 'bottom' },
         plotOptions: { bar: { borderRadius: 4, columnWidth: '45%' } },
         dataLabels: { enabled: false }

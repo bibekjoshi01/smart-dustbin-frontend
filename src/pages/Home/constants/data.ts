@@ -1,3 +1,4 @@
+import { COLORS } from "@/utils/constants/COLORS";
 import {
     Delete,
     Recycling,
@@ -225,19 +226,19 @@ export function generateWeightData(
             label: 'Total Weight (kg)',
             value: weight,
             icon: Scale,
-            color: 'primary.main'
+            color: 'info.main'
         },
         {
             label: 'Organic items',
             value: organic,
             icon: Delete,
-            color: 'success.main'
+            color: COLORS[0]
         },
         {
             label: 'Recyclable items',
             value: recyclable,
             icon: Recycling,
-            color: 'info.main'
+            color: COLORS[1]
         }
     ];
 }

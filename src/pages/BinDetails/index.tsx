@@ -26,7 +26,7 @@ export default function BinDetails() {
             <Charts range={range} setRange={setRange} id={Number(id)} />
 
             {/* Detailed Map view */}
-            <MapDetailed bin={bin} />
+            <MapDetailed bin={bin} range={range} />
         </Box >
     );
 }

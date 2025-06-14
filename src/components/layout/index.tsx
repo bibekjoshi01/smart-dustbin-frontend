@@ -71,7 +71,7 @@ export default function Layout() {
       <Box
         sx={{
           px: 2,
-          mt: 9,
+          mt: 7,
           width: '100%',
           transition: "all 0.3s",
         }}

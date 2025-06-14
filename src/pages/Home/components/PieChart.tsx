@@ -3,6 +3,7 @@ import { ApexOptions } from 'apexcharts';
 import ReactApexChart from 'react-apexcharts';
 import { useTheme } from '@mui/material/styles';
 import { generatePieData } from '../constants/data';
+import { COLORS } from '@/utils/constants/COLORS';
 
 interface PieChartProps {
     range: 'today' | 'month' | 'year';
@@ -33,7 +34,7 @@ export default function PieChart({ range, id }: PieChartProps) {
             }
         },
         labels,
-        colors: ['#00C49F', '#0088FE'],
+        colors: COLORS,
         legend: {
             position: 'bottom',
             labels: {

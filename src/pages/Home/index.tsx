@@ -17,7 +17,7 @@ export default function Home() {
         />
 
         {/* MAP */}
-        <BinMap />
+        <BinMap range={range} />
       </Box>
     </>
   );

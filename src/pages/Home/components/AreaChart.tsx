@@ -3,6 +3,7 @@ import { ApexOptions } from 'apexcharts';
 import ReactApexChart from 'react-apexcharts';
 import { useTheme } from '@mui/material/styles';
 import { generateAreaData } from '../constants/data';
+import { COLORS } from '@/utils/constants/COLORS';
 
 interface AreaChartProps {
     range: 'today' | 'month' | 'year';
@@ -43,7 +44,7 @@ export default function AreaChart({ range }: AreaChartProps) {
                 }
             }
         },
-        colors: ['#00C49F', '#0088FE'],
+        colors: COLORS,
         legend: { position: 'bottom' },
         grid: {
             borderColor: theme.palette.divider

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Icon } from "leaflet";
+import { divIcon, Icon } from "leaflet";
 import L from "leaflet";
 import "leaflet-routing-machine";
 import "leaflet/dist/leaflet.css";
@@ -26,6 +26,13 @@ const userIcon = new Icon({
     iconAnchor: [17, 35],
 });
 
+// Status to color mapping
+const statusColorMap: Record<string, string> = {
+    full: "#e53935", // red
+    normal: "#fb8c00", // orange
+    empty: "#43a047" // green
+};
+
 // RoutingControl component
 function RoutingControl({ from, to }: { from: [number, number]; to: [number, number] }) {
     const map = useMap();
@@ -45,7 +52,7 @@ function RoutingControl({ from, to }: { from: [number, number]; to: [number, num
     return null;
 }
 
-export default function MapDetailed({ bin }: { bin: BIN }) {
+export default function MapDetailed({ bin, range }: { bin: BIN, range: 'today' | 'month' | 'year' }) {
     const [userPosition, setUserPosition] = useState<[number, number] | null>(null);
     const [hoveredBin, setHoveredBin] = useState<BIN | null>(null);
     const navigate = useNavigate();
@@ -67,6 +74,19 @@ export default function MapDetailed({ bin }: { bin: BIN }) {
 
     if (!userPosition) return <Loader />;
 
+    const status = bin[range].status || "empty";
+    const circleIcon = divIcon({
+        html: `<div style="
+                                width: 40px;
+                                height: 40px;
+                                background-color: ${statusColorMap[status]};
+                                border-radius: 50%;
+                                opacity: 0.4;
+                                transform: translate(-15px, -15px);
+                            "></div>`,
+        className: "",
+    });
+
     return (
         <Box sx={{ width: "100%", height: 500, my: 4, p: 3 }}>
             <MapContainer
@@ -86,7 +106,13 @@ export default function MapDetailed({ bin }: { bin: BIN }) {
 
                 {/* Bin Marker */}
                 <Marker
-                    key={bin.id}
+                    key={`circle-${bin.id}`}
+                    position={[bin.latitude, bin.longitude]}
+                    icon={circleIcon}
+                    interactive={false}
+                />
+                <Marker
+                    key={`bin-${bin.id}`}
                     position={[bin.latitude, bin.longitude]}
                     icon={binIcon}
                     eventHandlers={{

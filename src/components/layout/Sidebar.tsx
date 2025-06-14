@@ -22,7 +22,7 @@ type Props = {
 };
 
 const navItems = [
-  { label: "Home", icon: <Home />, to: "/" },
+  { label: "Statistics", icon: <Home />, to: "/" },
   { label: "About", icon: <Info />, to: "/about" },
   { label: "Logout", icon: <Logout />, to: "" },
 
@@ -85,7 +85,10 @@ export default function Sidebar({ open }: Props) {
             <ListItemButton
               component={Link}
               to={item.to}
-              selected={location.pathname === item.to}
+              selected={
+                location.pathname === item.to ||
+                (item.label.toLowerCase() === 'statistics' && (/^\/$/.test(location.pathname) || /^\/\d+$/.test(location.pathname)))
+              }
               onClick={item.label === "Logout" ? handleLogout : undefined}
               sx={{
                 flexGrow: 0,
