@@ -1,17 +1,22 @@
+import { useState } from "react";
 import { Box } from "@mui/material";
-// import BarChart from "./components/BarChart";
-// import PieChart from "./components/PieChart";
 import BinMap from "./components/Map";
+import Charts from "./components/Charts";
 
 export default function Home() {
+  const [range, setRange] = useState<'today' | 'month' | 'year'>('today');
+
   return (
     <>
-      {/* <Box sx={{ mt: 1, display: 'grid', gridAutoFlow: 'column', gap: 2 }}>
-        <BarChart />
-        <PieChart />
-      </Box> */}
+      <Box sx={{ mt: 2 }}>
 
-      <Box sx={{ mt: 4 }}>
+        {/* Charts */}
+        <Charts
+          range={range}
+          setRange={setRange}
+        />
+
+        {/* MAP */}
         <BinMap />
       </Box>
     </>

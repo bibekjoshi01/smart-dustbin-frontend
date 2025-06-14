@@ -1,5 +1,5 @@
-import { Paper, Typography, Box, Divider } from "@mui/material";
 import { BIN } from "../constants/data";
+import { Paper, Typography, Box, Divider } from "@mui/material";
 
 interface Props {
     bin: BIN;
@@ -33,21 +33,21 @@ export default function BinHoverCard({ bin }: Props) {
                 <Typography variant="body2" fontWeight={500}>
                     Status:
                 </Typography>
-                <Typography variant="body2">{bin.status}</Typography>
+                <Typography variant="body2">{bin['today'].status}</Typography>
             </Box>
 
             <Box display="flex" justifyContent="space-between">
                 <Typography variant="body2" fontWeight={500}>
                     Organic:
                 </Typography>
-                <Typography variant="body2">{bin.organic} items</Typography>
+                <Typography variant="body2">{bin['today'].organic} items</Typography>
             </Box>
 
             <Box display="flex" justifyContent="space-between">
                 <Typography variant="body2" fontWeight={500}>
                     Recyclable:
                 </Typography>
-                <Typography variant="body2">{bin.recyclable} items</Typography>
+                <Typography variant="body2">{bin['today'].recyclable} items</Typography>
             </Box>
 
             <Box display="flex" justifyContent="space-between">
@@ -55,7 +55,7 @@ export default function BinHoverCard({ bin }: Props) {
                     Total:
                 </Typography>
                 <Typography variant="body2" fontWeight={500}>
-                    {bin.organic + bin.recyclable} items
+                    {bin['today'].organic + bin['today'].recyclable} items
                 </Typography>
             </Box>
 
@@ -66,7 +66,7 @@ export default function BinHoverCard({ bin }: Props) {
                     Total:
                 </Typography>
                 <Typography variant="body2" fontWeight={600}>
-                    {bin.weight} kg
+                    {bin['today'].weight} kg
                 </Typography>
             </Box>
         </Paper>

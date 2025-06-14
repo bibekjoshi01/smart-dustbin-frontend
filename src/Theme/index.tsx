@@ -25,6 +25,13 @@ const theme = createTheme({
     warning: {
       main: '#FAAD14',
     },
+    action: {
+      hover: '#0000000a'
+    },
+    background: {
+      paper: '#FFFFFF',
+      default: '#fafafb',
+    }
   },
   typography: {
     htmlFontSize: 16,

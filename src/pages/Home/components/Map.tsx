@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 
 import { Icon } from "leaflet";
 import "leaflet/dist/leaflet.css";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import { useNavigate } from "react-router-dom";
-import { data as bins, BIN } from "../constants/data";
+import { Box } from "@mui/material";
 import Loader from "@/components/Loader";
 import BinHoverCard from "./BinHoverCard";
-import { Box } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { binData as bins, BIN } from "../constants/data";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 
 // Marker icons
 const binIcon = new Icon({
@@ -45,7 +45,7 @@ export default function BinMap() {
     if (!userPosition) return <Loader />
 
     return (
-        <Box sx={{ width: "100%", height: "500px", mt: -2 }}>
+        <Box sx={{ width: "100%", height: "500px", mt: -2 , p:3}}>
             <MapContainer
                 center={userPosition}
                 zoom={16}

@@ -1,47 +1,55 @@
-import { Box, Card, CardContent, Typography } from "@mui/material";
-import {
-    PieChart as Chart,
-    Pie,
-    Cell,
-    Tooltip,
-    Legend,
-    ResponsiveContainer,
-} from "recharts";
+import { useEffect, useState } from 'react';
+import { ApexOptions } from 'apexcharts';
+import ReactApexChart from 'react-apexcharts';
+import { useTheme } from '@mui/material/styles';
+import { generatePieData } from '../constants/data';
 
-interface Props {
-    data: { name: string; value: number }[];
+interface PieChartProps {
+    range: 'today' | 'month' | 'year';
+    id?: number;
 }
 
-const COLORS = ["#00C49F", "#0088FE"];
+export default function PieChart({ range, id }: PieChartProps) {
+    const theme = useTheme();
+    const [series, setSeries] = useState<number[]>([]);
+    const [labels, setLabels] = useState<string[]>([]);
+    const [chartKey, setChartKey] = useState<number>(0);
 
-export default function PieChart({ data }: Props) {
+    useEffect(() => {
+        const pie = generatePieData(range, id);
+        setLabels(pie.map((d) => d.name));
+        setSeries(pie.map((d) => d.value));
+        setChartKey(prev => prev + 1);
+    }, [range, id]);
+
+    const options: ApexOptions = {
+        chart: {
+            type: 'pie',
+            toolbar: {
+                show: true,
+                tools: {
+                    download: true
+                }
+            }
+        },
+        labels,
+        colors: ['#00C49F', '#0088FE'],
+        legend: {
+            position: 'bottom',
+            labels: {
+                colors: [theme.palette.text.primary]
+            }
+        }
+    };
+
     return (
-        <Card>
-            <CardContent>
-                <Typography mb={2}>Waste Breakdown</Typography>
-                <Box sx={{ width: "100%", height: { xs: 240, sm: 280, md: 320 } }}>
-                    <ResponsiveContainer width="100%" height="100%">
-                        <Chart>
-                            <Pie
-                                data={data}
-                                dataKey="value"
-                                nameKey="name"
-                                outerRadius={100}
-                                label
-                            >
-                                {data.map((_, index) => (
-                                    <Cell
-                                        key={`cell-${index}`}
-                                        fill={COLORS[index % COLORS.length]}
-                                    />
-                                ))}
-                            </Pie>
-                            <Tooltip />
-                            <Legend />
-                        </Chart>
-                    </ResponsiveContainer>
-                </Box>
-            </CardContent>
-        </Card>
+        <ReactApexChart
+            key={chartKey}
+            options={options}
+            series={series}
+            type="pie"
+            height={350}
+            style={{ flex: 1 }}
+        />
     );
 }

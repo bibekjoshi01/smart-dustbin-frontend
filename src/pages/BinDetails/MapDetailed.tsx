@@ -7,7 +7,6 @@ import "leaflet-routing-machine/dist/leaflet-routing-machine.css";
 import "leaflet-routing-machine/dist/leaflet-routing-machine.js";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 
-
 import { Box } from "@mui/material";
 import { BIN } from "../Home/constants/data";
 import Loader from "@/components/Loader";
@@ -69,7 +68,7 @@ export default function MapDetailed({ bin }: { bin: BIN }) {
     if (!userPosition) return <Loader />;
 
     return (
-        <Box sx={{ width: "100%", height: 500, my: 4 }}>
+        <Box sx={{ width: "100%", height: 500, my: 4, p: 3 }}>
             <MapContainer
                 center={[bin.latitude, bin.longitude]}
                 zoom={17}
