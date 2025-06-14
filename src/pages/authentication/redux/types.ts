@@ -1,10 +1,23 @@
 export interface IAuthState {
+  id: number;
   email: string;
-  tokens?: {
-    access: string;
-    refresh: string;
-  };
-  isAuthenticated: boolean;
+  isActive: boolean;
+  createdAt: string;
+  isAuthenticated?: boolean;
+  message: string;
+  accessToken?: string;
+}
+
+export interface ProfileResponse {
+  id: number;
+  email: string;
+  is_active: boolean;
+  created_at: string;
+}
+
+export interface LoginResponse {
+  access_token: string;
+  message: string;
 }
 
 export interface UnverifiedLoginState {
@@ -12,6 +25,6 @@ export interface UnverifiedLoginState {
 }
 
 export interface LoginFormDataType {
-  persona: string;
+  email: string;
   password: string;
 }

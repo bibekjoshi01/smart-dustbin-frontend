@@ -11,6 +11,7 @@ import { Outlet } from "react-router-dom";
 import { useState } from "react";
 import Sidebar from "./Sidebar";
 import { Person } from "@mui/icons-material";
+import { useAppSelector } from "@/libs/hooks";
 
 // Main Layout -> Esle Other Pages lai Wrap garcha
 const drawerWidthOpen = 220;
@@ -18,7 +19,8 @@ const drawerWidthClosed = 60;
 
 export default function Layout() {
   const [open, setOpen] = useState(true);
-  const username = "BM UNity";
+  const email = useAppSelector((state) => state.auth.email);
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -56,7 +58,7 @@ export default function Layout() {
                 />
               </IconButton>
               <Typography variant="body1" sx={{ color: "black" }}>
-                {username}
+                {email}
               </Typography>
             </Box>
           </Box>

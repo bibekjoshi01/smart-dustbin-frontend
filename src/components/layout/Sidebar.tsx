@@ -9,8 +9,10 @@ import {
   Typography,
   Box,
 } from "@mui/material";
-import { Home, Info } from "@mui/icons-material";
+import { Home, Info, Logout } from "@mui/icons-material";
 import { Link, useLocation } from "react-router-dom";
+import { useAppDispatch } from "@/libs/hooks";
+import { logoutSuccess } from "@/pages/authentication/redux/auth.slice";
 
 const drawerWidthOpen = 220;
 const drawerWidthClosed = 60;
@@ -22,11 +24,14 @@ type Props = {
 const navItems = [
   { label: "Home", icon: <Home />, to: "/" },
   { label: "About", icon: <Info />, to: "/about" },
+  { label: "Logout", icon: <Logout />, to: "" },
+
 ];
 
 export default function Sidebar({ open }: Props) {
   const location = useLocation();
-
+  const dispatch = useAppDispatch();
+  const handleLogout = () => dispatch(logoutSuccess());
   return (
     <Drawer
       variant="permanent"
@@ -70,7 +75,7 @@ export default function Sidebar({ open }: Props) {
       </Box>
 
       <Divider />
-      <List>
+      <List sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
         {navItems.map((item) => (
           <Tooltip
             title={!open ? item.label : ""}
@@ -81,16 +86,15 @@ export default function Sidebar({ open }: Props) {
               component={Link}
               to={item.to}
               selected={location.pathname === item.to}
+              onClick={item.label === "Logout" ? handleLogout : undefined}
               sx={{
-                justifyContent: open ? "initial" : "center", px: 2, '&:hover': {
-                  color: 'white',
-                },
-                '&.Mui-selected': {
-                  backgroundColor: '#196e55',
-                },
-                '&.Mui-selected:hover': {
-                  backgroundColor: '#196e55',
-                },
+                flexGrow: 0,
+                marginTop: item.label === "Logout" ? "auto" : undefined,
+                justifyContent: open ? "initial" : "center",
+                px: 2,
+                '&:hover': { color: 'white' },
+                '&.Mui-selected': { backgroundColor: '#196e55' },
+                '&.Mui-selected:hover': { backgroundColor: '#196e55' },
               }}
             >
               <ListItemIcon

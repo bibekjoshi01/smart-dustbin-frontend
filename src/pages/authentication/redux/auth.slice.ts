@@ -5,38 +5,54 @@ import { createSlice } from '@reduxjs/toolkit';
 import { IAuthState } from './types';
 
 const initialState: IAuthState = {
+  id: 0,
   email: '',
-  tokens: {
-    access: '',
-    refresh: ''
-  },
+  isActive: false,
+  createdAt: '',
   isAuthenticated: false,
+  message: '',
+  accessToken: undefined
 };
+
+type LoginSuccessPayload = {
+  accessToken: string;
+  message: string;
+};
+
+type AuthStatePayload = {
+  id: number;
+  email: string;
+  isActive: boolean;
+  createdAt: string;
+};
+
 
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    loginSuccess: (state, action: PayloadAction<IAuthState>) => {
-      const {
-        payload: { email, tokens }
-      } = action;
-      state.email = email;
-      state.tokens = tokens;
+    loginSuccess: (state, action: PayloadAction<LoginSuccessPayload>) => {
+      const { accessToken, message } = action.payload;
+      state.accessToken = accessToken;
+      state.message = message;
       state.isAuthenticated = true;
 
       // Save access and refresh tokens in the cookies
-      Cookies.set('access', tokens?.access as string, {
-        path: '/',
-        secure: true,
-        sameSite: 'Lax'
-      });
-      Cookies.set('refresh', tokens?.refresh as string, {
+      Cookies.set('access', accessToken as string, {
         path: '/',
         secure: true,
         sameSite: 'Lax'
       });
       Cookies.set('logout', 'false');
+    },
+    setAuthSate: (state, action: PayloadAction<AuthStatePayload>) => {
+      const {
+        payload: { email, id, isActive, createdAt }
+      } = action;
+      state.id = id
+      state.email = email;
+      state.isActive = isActive;
+      state.createdAt = createdAt;
     },
     logoutSuccess: () => {
       Cookies.remove('access', { path: '/' });
@@ -58,6 +74,6 @@ export const authSlice = createSlice({
   }
 });
 
-export const { loginSuccess, logoutSuccess, checkAuthStatus } = authSlice.actions;
+export const { loginSuccess, logoutSuccess, checkAuthStatus, setAuthSate } = authSlice.actions;
 
 export default authSlice.reducer;

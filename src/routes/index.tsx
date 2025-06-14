@@ -19,7 +19,7 @@ const Routes = () => {
 
   if (!isRehydrated) return null;
 
-  return !isAuthenticated ? <PrivateRoutes /> : <PublicRoutes />;
+  return isAuthenticated ? <PrivateRoutes /> : <PublicRoutes />;
 };
 
 export default Routes;

@@ -1,22 +1,23 @@
 import React, { useState } from 'react';
 
 // material-ui
-import Button from '@mui/material/Button';
-import Checkbox from '@mui/material/Checkbox';
-import FormControlLabel from '@mui/material/FormControlLabel';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+import Checkbox from '@mui/material/Checkbox';
 import Typography from '@mui/material/Typography';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import { IconButton, InputAdornment, TextField } from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 // Project Imports
-import LoginFormSection from './FormSection';
 import { LoginFormDataType } from '../redux/types';
 import { useLogin } from '../hooks/useLogin';
 
 export default function AuthLogin() {
   const [checked, setChecked] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const [values, setValues] = useState<LoginFormDataType>({ persona: '', password: '' });
+  const [values, setValues] = useState<LoginFormDataType>({ email: '', password: '' });
   const { handleSubmit, loadingLogin, } = useLogin();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,12 +37,35 @@ export default function AuthLogin() {
     <form noValidate onSubmit={handleFormSubmit}>
       <Grid container spacing={3}>
         <Grid>
-          <LoginFormSection
-            values={values}
-            showPassword={showPassword}
-            onChange={handleChange}
-            onTogglePassword={handleTogglePassword}
-          />
+          <Grid container spacing={2}>
+            <TextField
+              fullWidth
+              label="Email"
+              name="email"
+              type="text"
+              placeholder="Enter email"
+              value={values.email}
+              onChange={handleChange}
+            />
+            <TextField
+              fullWidth
+              label="Password"
+              name="password"
+              type={showPassword ? 'text' : 'password'}
+              placeholder="Enter password"
+              value={values.password}
+              onChange={handleChange}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton onClick={handleTogglePassword} edge="end">
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </Grid>
         </Grid>
         <Grid sx={{ mt: -1 }}>
           <Stack direction="row" justifyContent="space-between" alignItems="center">

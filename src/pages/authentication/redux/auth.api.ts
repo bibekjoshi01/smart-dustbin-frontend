@@ -1,29 +1,28 @@
 import { rootAPI } from '../../../libs/apiSlice';
-import { IAuthState, LoginFormDataType } from './types';
+import { LoginResponse, LoginFormDataType, ProfileResponse } from './types';
 
-export const authAPI = 'admin/user-app/auth';
+export const authAPI = 'auth';
 
 export const authAPISlice = rootAPI.injectEndpoints({
   endpoints: (builder) => ({
-    login: builder.mutation<IAuthState, { values: LoginFormDataType }>({
-      query: ({ values }) => {
-        return {
-          url: `${authAPI}/login`,
-          method: 'POST',
-          data: values
-        };
-      }
+    login: builder.mutation<LoginResponse, LoginFormDataType>({
+      query: (values) => ({
+        url: `${authAPI}/login`,
+        method: 'POST',
+        data: values,
+      }),
     }),
-    logout: builder.mutation({
-      query: (values) => {
-        return {
-          url: `${authAPI}/logout`,
-          method: 'POST',
-          data: values
-        };
-      }
-    })
-  })
+    getProfile: builder.query<ProfileResponse, void>({
+      query: () => ({
+        url: `${authAPI}/profile`,
+        method: 'GET',
+      }),
+    }),
+  }),
 });
 
-export const { useLoginMutation, useLogoutMutation } = authAPISlice;
+export const {
+  useLoginMutation,
+  useGetProfileQuery,
+  useLazyGetProfileQuery,
+} = authAPISlice;

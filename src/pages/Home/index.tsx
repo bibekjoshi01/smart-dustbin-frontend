@@ -1,9 +1,14 @@
-import { Typography } from "@mui/material";
+import { Box } from "@mui/material";
+import BarChart from "./components/BarChart";
+import PieChart from "./components/PieChart";
 
 export default function Home() {
   return (
     <>
-      <Typography variant="h4">Home Page</Typography>
+      <Box sx={{ mt: 1, display: 'grid', gridAutoFlow: 'column', gap: 2 }}>
+        <BarChart />
+        <PieChart />
+      </Box>
     </>
   );
 }
